@@ -1,8 +1,11 @@
 import Navbar from './assets/components/section_1/Navbar'
+import LoginPage from "./assets/components/LoginPage";
+
 const App = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
+      <LoginPage/>
     </div>
   )
 }

@@ -1,2 +1,18 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme {
+  @keyframes planetRotate {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: -200% center;
+    }
+  }
+}
+
+html {
+  background-color: #050510;
+  color: #ffffff;
+}

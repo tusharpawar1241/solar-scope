@@ -1,11 +1,34 @@
 import React, { useState } from 'react'
 import Navbar from './assets/components/section_1/Navbar'
+import Mercury from './assets/components/section_1/planets/Mercury'
+import Venus from './assets/components/section_1/planets/Venus'
+import Earth from './assets/components/section_1/planets/Earth'
+import Mars from './assets/components/section_1/planets/Mars'
+import Jupiter from './assets/components/section_1/planets/Jupiter'
+import Saturn from './assets/components/section_1/planets/Saturn'
+import Uranus from './assets/components/section_1/planets/Uranus'
+import Neptune from './assets/components/section_1/planets/Neptune'
+import Pluto from './assets/components/section_1/planets/Pluto'
+
 import BlogPage from './assets/components/blog/BlogPage'
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('Home');
 
   return (
+    <div>
+      <Navbar />
+      <div className="grid grid-cols-3 justify-items-center py-10 gap-10">
+        <Mercury />
+        <Venus />
+        <Earth />
+        <Mars />
+        <Jupiter />
+        <Saturn />
+        <Uranus />
+        <Neptune />
+        <Pluto />
+      </div>
     <div className="min-h-screen bg-slate-950 text-white">
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 

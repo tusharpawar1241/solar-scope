@@ -10,7 +10,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PlusCircle, Loader2, AlertCircle, Rss } from 'lucide-react';
-import { getBlogs, deleteBlog, CURRENT_USER } from '../../../lib/api/blogs';
+import { getBlogs, deleteBlog } from '../../../lib/api/blogs';
+import { getSession } from '../../../lib/api/auth';
 import BlogCard from './BlogCard';
 import BlogModal from './BlogModal';
 
@@ -149,7 +150,7 @@ const BlogPage = () => {
               <BlogCard
                 key={post._id}
                 post={post}
-                currentUser={CURRENT_USER}
+                currentUser={getSession().user}
                 onEdit={handleOpenEdit}
                 onDelete={handleDelete}
               />

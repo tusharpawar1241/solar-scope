@@ -7,7 +7,7 @@
 // Replace `requireAuth` with your actual auth middleware import.
 
 import express from 'express';
-import { requireAuth } from '../middleware/auth.js'; // ← your existing auth middleware
+import { requireAuth } from '../middleware/requireAuth.js';
 import { requireOwnership } from '../middleware/requireOwnership.js';
 import {
   listBlogs,

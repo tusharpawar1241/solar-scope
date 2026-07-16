@@ -56,7 +56,7 @@ const Navbar = () => {
               {isActive(item.path) && (
                 <motion.div
                   layoutId="active-underline"
-                  className="absolute bottom-[-22px] left-0 right-0 h-[2px] bg-cyan-400 shadow-[0_0_8px_#22d3ee]"
+                  className="absolute -bottom-5.5 left-0 right-0 h-0.5 bg-cyan-400 shadow-[0_0_8px_#22d3ee]"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}

@@ -19,9 +19,11 @@ import {
 
 const router = express.Router();
 
-// All routes require authentication
-router.get('/',     requireAuth, listBlogs);   // GET  /api/blogs
-router.get('/:id',  requireAuth, getBlog);     // GET  /api/blogs/:id
+// Public routes — anyone can read
+router.get('/',     listBlogs);            // GET  /api/blogs
+router.get('/:id',  getBlog);             // GET  /api/blogs/:id
+
+// Auth required — must be logged in to write
 router.post('/',    requireAuth, createBlog);  // POST /api/blogs
 
 // Edit and Delete also require ownership (runs after requireAuth)

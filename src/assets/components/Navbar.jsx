@@ -19,6 +19,8 @@ const Navbar = () => {
     { name: 'About', path: '/about'},
   ];
 
+  const isLoggedIn = !!user;
+
   const isActive = (path) => location.pathname === path;
 
   const handleLogout = () => {
@@ -63,21 +65,31 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {/* User name + Logout */}
-          <div className="flex items-center gap-3 ml-4 pl-4 border-l border-slate-700">
-            <span className="text-sm text-slate-400">
-              Hi, <span className="text-cyan-400 font-semibold">{user?.name}</span>
-            </span>
-            <button
-              onClick={handleLogout}
-              title="Logout"
-              className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-red-400
-                         transition-colors duration-200 py-1 px-2 rounded-lg hover:bg-red-400/10"
+          {/* User section: show name+logout if logged in, Login link if not */}
+          {isLoggedIn ? (
+            <div className="flex items-center gap-3 ml-4 pl-4 border-l border-slate-700">
+              <span className="text-sm text-slate-400">
+                Hi, <span className="text-cyan-400 font-semibold">{user?.name}</span>
+              </span>
+              <button
+                onClick={handleLogout}
+                title="Logout"
+                className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-red-400
+                           transition-colors duration-200 py-1 px-2 rounded-lg hover:bg-red-400/10"
+              >
+                <LogOut size={16} />
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className={`relative py-2 text-lg font-semibold transition-colors duration-200 ml-4 pl-4 border-l border-slate-700
+                ${isActive('/login') ? 'text-white' : 'text-slate-400 hover:text-white'}`}
             >
-              <LogOut size={16} />
-              Logout
-            </button>
-          </div>
+              Login
+            </Link>
+          )}
         </nav>
       </div>
 
@@ -95,12 +107,22 @@ const Navbar = () => {
               {item.name}
             </Link>
           ))}
-          <button
-            onClick={handleLogout}
-            className="text-sm text-red-400 hover:text-red-300 transition-colors py-2"
-          >
-            Logout
-          </button>
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="text-sm text-red-400 hover:text-red-300 transition-colors py-2"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-semibold text-slate-400"
+            >
+              Login
+            </Link>
+          )}
         </div>
       )}
     </div>

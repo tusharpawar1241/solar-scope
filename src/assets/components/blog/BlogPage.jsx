@@ -9,7 +9,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { PlusCircle, Loader2, AlertCircle, Rss } from 'lucide-react';
+import { PlusCircle, Loader2, AlertCircle, Rss, LogIn } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { getBlogs, deleteBlog } from '../../../lib/api/blogs';
 import { getSession } from '../../../lib/api/auth';
 
@@ -18,6 +19,8 @@ import BlogCard from './BlogCard';
 import BlogModal from './BlogModal';
 
 const BlogPage = () => {
+  const navigate = useNavigate();
+  const { user: currentUser } = getSession(); // null if not logged in
   // ── Posts state ───────────────────────────────────────────────
   const [posts, setPosts]     = useState([]);       // the list of blog posts
   const [loading, setLoading] = useState(true);     // true while the initial fetch is running
@@ -114,20 +117,33 @@ const BlogPage = () => {
           </div>
         </div>
 
-        {/* ── New Post button ─────────────────────────────────
-            Opens the modal in 'create' mode */}
-        <motion.button
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-          onClick={handleOpenCreate}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl
-                     bg-cyan-500 hover:bg-cyan-400 text-slate-950
-                     font-semibold text-sm transition-colors duration-200
-                     shadow-lg shadow-cyan-500/20"
-        >
-          <PlusCircle size={17} />
-          New Post
-        </motion.button>
+        {/* ── New Post button (logged in) or Sign In prompt ── */}
+        {currentUser ? (
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={handleOpenCreate}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl
+                       bg-cyan-500 hover:bg-cyan-400 text-slate-950
+                       font-semibold text-sm transition-colors duration-200
+                       shadow-lg shadow-cyan-500/20"
+          >
+            <PlusCircle size={17} />
+            New Post
+          </motion.button>
+        ) : (
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate('/login')}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl
+                       border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10
+                       font-semibold text-sm transition-colors duration-200"
+          >
+            <LogIn size={17} />
+            Sign in to post
+          </motion.button>
+        )}
       </div>
 
       {/* ── Loading state ────────────────────────────────────── */}
@@ -164,7 +180,7 @@ const BlogPage = () => {
               <BlogCard
                 key={post._id}
                 post={post}
-                currentUser={getSession().user}
+                currentUser={currentUser}  // null when not logged in — BlogCard hides buttons
                 onEdit={handleOpenEdit}
                 onDelete={handleDelete}
               />

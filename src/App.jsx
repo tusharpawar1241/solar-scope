@@ -43,17 +43,13 @@ const App = () => {
           path="/login" 
           element={
             <div className="text-center mt-20">
-              <h2 className="text-3xl font-bold text-cyan-400">Account Login</h2>
-              <p className="mt-4 text-slate-400">Authentication interface coming soon.</p>
+              <LoginPage />
             </div>
           } 
         />
       </Routes>
-    <div>
-      <Navbar />
-      <LoginPage />
     </div>
   )
 }
 
-export default App
+export default App;

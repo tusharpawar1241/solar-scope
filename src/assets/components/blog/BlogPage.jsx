@@ -12,6 +12,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { PlusCircle, Loader2, AlertCircle, Rss } from 'lucide-react';
 import { getBlogs, deleteBlog } from '../../../lib/api/blogs';
 import { getSession } from '../../../lib/api/auth';
+
+const isDemoMode = () => localStorage.getItem('solar_token') === 'demo-mode';
 import BlogCard from './BlogCard';
 import BlogModal from './BlogModal';
 
@@ -89,6 +91,18 @@ const BlogPage = () => {
   // ── Render ────────────────────────────────────────────────────
   return (
     <div className="max-w-2xl mx-auto py-8 px-4">
+
+      {/* ── Demo mode banner ─────────────────────────────────── */}
+      {isDemoMode() && (
+        <div className="mb-6 flex items-center gap-3 bg-amber-400/10 border border-amber-400/30
+                        rounded-xl px-4 py-3 text-amber-300 text-sm">
+          <span className="text-base">🚀</span>
+          <span>
+            <strong>Demo Mode</strong> — you&apos;re browsing without an account.
+            Data is temporary and resets on refresh.
+          </span>
+        </div>
+      )}
 
       {/* ── Page header ──────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-8">

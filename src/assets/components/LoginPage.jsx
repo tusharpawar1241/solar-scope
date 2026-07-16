@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
-import { login, register, saveSession } from '../../lib/api/auth';
+import { login, register, saveSession, enterDemoMode } from '../../lib/api/auth';
 
 function LoginPage() {
   const navigate  = useNavigate();
@@ -49,6 +49,11 @@ function LoginPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDemoLogin = () => {
+    enterDemoMode();
+    navigate('/');
   };
 
   const switchMode = () => {
@@ -162,6 +167,28 @@ function LoginPage() {
           >
             {isRegister ? 'Sign In' : 'Sign Up'}
           </span>
+        </p>
+
+        {/* Divider */}
+        <div className="mt-5 flex items-center gap-3">
+          <div className="flex-1 h-px bg-white/20" />
+          <span className="text-xs text-gray-400">or</span>
+          <div className="flex-1 h-px bg-white/20" />
+        </div>
+
+        {/* Demo Mode button */}
+        <button
+          type="button"
+          onClick={handleDemoLogin}
+          className="mt-4 w-full rounded-2xl border border-white/20 bg-white/5 py-2.5 text-sm
+                     font-semibold text-gray-300 hover:bg-white/10 hover:text-white
+                     transition duration-200"
+        >
+          🚀 Try Demo — no account needed
+        </button>
+
+        <p className="mt-2 text-center text-xs text-gray-500">
+          Demo data is temporary and resets on refresh
         </p>
 
       </div>

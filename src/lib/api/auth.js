@@ -2,7 +2,7 @@
 // Client-side auth helpers — register, login, session management in localStorage.
 // All components import from here instead of touching localStorage directly.
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = '/api';
 
 // ── Register a new account ─────────────────────────────────────
 export async function register({ name, email, password }) {
@@ -46,4 +46,12 @@ export function getSession() {
 export function clearSession() {
   localStorage.removeItem('solar_token');
   localStorage.removeItem('solar_user');
+}
+
+// ── Enter demo mode (no backend needed) ───────────────────────
+// Sets a special 'demo-mode' token. blogs.js detects this and
+// switches to the local in-memory mock data layer automatically.
+export function enterDemoMode() {
+  localStorage.setItem('solar_token', 'demo-mode');
+  localStorage.setItem('solar_user', JSON.stringify({ _id: 'demo-user', name: 'Demo User' }));
 }

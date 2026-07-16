@@ -63,13 +63,13 @@ function LoginPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-[#0b3940] via-[#041d22] to-black">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-b from-[#0b3940] via-[#041d22] to-black">
 
       {/* Background Glow */}
-      <div className="absolute h-[380px] w-[850px] rounded-full bg-cyan-400/20 blur-[120px] animate-pulse" />
+      <div className="absolute h-95 w-212.5 rounded-full bg-cyan-400/20 blur-[120px] animate-pulse" />
 
       {/* Card */}
-      <div className="relative z-10 w-[380px] rounded-[35px] border border-white/30 bg-white/10 p-10 text-white shadow-2xl backdrop-blur-xl">
+      <div className="relative z-10 w-95 rounded-[35px] border border-white/30 bg-white/10 p-10 text-white shadow-2xl backdrop-blur-xl">
 
         {/* Logo */}
         <h1 className="mb-3 text-center text-4xl font-bold tracking-[6px] drop-shadow-lg">
@@ -146,7 +146,7 @@ function LoginPage() {
             type="submit"
             disabled={loading}
             className="flex w-full items-center justify-center gap-2 rounded-2xl
-                       bg-gradient-to-r from-cyan-400 to-sky-500 py-3 text-xl font-bold
+                       bg-linear-to-r from-cyan-400 to-sky-500 py-3 text-xl font-bold
                        transition duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.7)]
                        disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
           >

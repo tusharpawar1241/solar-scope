@@ -5,7 +5,7 @@ function LoginPage() {
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-[#0b3940] via-[#041d22] to-black">
 
       {/* Background Glow */}
-      <div className="absolute h-[400px] w-[900px] rounded-full bg-cyan-400/20 blur-[120px] animate-pulse"></div>
+      <div className="absolute h-[380px] w-[850px] rounded-full bg-cyan-400/20 blur-[120px] animate-pulse"></div>
 
       {/* Login Card */}
       <div className="relative z-10 h-[540px] w-[380px] rounded-[35px] border border-white/30 bg-white/10 p-10 text-white shadow-2xl backdrop-blur-xl">
@@ -16,7 +16,7 @@ function LoginPage() {
         </h1>
 
         {/* Heading */}
-        <h2 className="mb-5 text-center text-4xl font-light">
+        <h2 className="mb-4 text-center text-4xl font-light">
           Welcome Back
         </h2>
 

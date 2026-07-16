@@ -2,7 +2,7 @@
 // Client-side auth helpers — register, login, session management in localStorage.
 // All components import from here instead of touching localStorage directly.
 
-const BASE_URL = '/api';
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 // ── Register a new account ─────────────────────────────────────
 export async function register({ name, email, password }) {

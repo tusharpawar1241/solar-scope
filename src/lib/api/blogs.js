@@ -3,7 +3,7 @@
 //   - DEMO MODE  : token === 'demo-mode' → uses local in-memory mock data (no backend needed)
 //   - REAL MODE  : uses the Express backend via Vite proxy
 
-const BASE_URL = '/api';
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const getToken = () => localStorage.getItem('solar_token');
 const isDemoMode = () => getToken() === 'demo-mode';
@@ -38,13 +38,14 @@ const delay = (ms = 200) => new Promise((res) => setTimeout(res, ms));
 const generateId = () => `demo-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 
 // ─── GET /api/blogs ─────────────────────────────────────────────
+// Public — no auth token required
 export async function getBlogs() {
   if (isDemoMode()) {
     await delay();
     return [...mockPosts].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }
 
-  const res  = await fetch(`${BASE_URL}/blogs`, { headers: authHeaders() });
+  const res  = await fetch(`${BASE_URL}/blogs`);
   const data = await res.json();
   if (!res.ok) throw new Error(data.error || 'Failed to fetch posts');
   return data;

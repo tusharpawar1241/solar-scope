@@ -1,40 +1,29 @@
 // src/App.jsx
-// Auth-gated routing:
-//   - ProtectedRoute redirects to /login if no JWT in localStorage
-//   - /login is public
-//   - All other routes require login
+// Public routing — no auth gate on any route.
+// Anyone can browse Home, Blog, and About.
+// Auth is enforced at the action level (create/edit/delete a post requires login).
 
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home     from './assets/components/Home/Home';
-import BlogPage from './assets/components/blog/BlogPage';
-import Navbar   from './assets/components/Navbar';
+import Home      from './assets/components/Home/Home';
+import BlogPage  from './assets/components/blog/BlogPage';
+import Navbar    from './assets/components/Navbar';
 import LoginPage from './assets/components/LoginPage';
-import { getSession } from './lib/api/auth';
-
-// Wraps any route that requires authentication.
-// If no token is found in localStorage → redirect to /login.
-const ProtectedRoute = ({ children }) => {
-  const { token } = getSession();
-  if (!token) return <Navigate to="/login" replace />;
-  return children;
-};
 
 const App = () => {
   return (
     <div>
       <Routes>
 
-        {/* ── Public route — no Navbar, full-screen layout ── */}
+        {/* ── Login page — no Navbar, full screen ───────────── */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* ── Protected routes — all show Navbar ──────────── */}
+        {/* ── All other routes — public, Navbar always shown ── */}
         <Route
           path="/*"
           element={
-            <ProtectedRoute>
+            <>
               <Navbar />
               <Routes>
-
                 <Route path="/" element={<Home />} />
 
                 <Route
@@ -56,11 +45,9 @@ const App = () => {
                   }
                 />
 
-                {/* Catch-all → home */}
                 <Route path="*" element={<Navigate to="/" replace />} />
-
               </Routes>
-            </ProtectedRoute>
+            </>
           }
         />
 

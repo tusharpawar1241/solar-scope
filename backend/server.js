@@ -14,13 +14,9 @@ dotenv.config();
 const app = express();
 
 // ── Middleware ─────────────────────────────────────────────────
-// In production, CORS_ORIGIN is set to the Vercel frontend URL.
-// In development, it falls back to the two Vite dev server ports.
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',')
-  : ['http://localhost:5173', 'http://localhost:5174'];
-
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+// Temporarily accepting all origins to rule out CORS as the issue.
+// Will be locked to specific Vercel domain once routing is confirmed.
+app.use(cors({ origin: true, credentials: true }));
 
 // Parse incoming JSON request bodies
 app.use(express.json());

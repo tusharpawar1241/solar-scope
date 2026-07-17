@@ -7,6 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { login, register, saveSession, enterDemoMode } from '../../lib/api/auth';
 
+const starField = Array.from({ length: 110 }, (_, index) => ({
+  id: index,
+  left: `${(index * 7) % 100}%`,
+  top: `${(index * 13) % 100}%`,
+  size: `${(index % 4) + 1}px`,
+  delay: `${(index % 10) * 0.35}s`,
+  opacity: (index % 4) === 0 ? 0.45 : 0.8,
+}));
+
 function LoginPage() {
   const navigate  = useNavigate();
 
@@ -21,12 +30,14 @@ function LoginPage() {
   // UI state
   const [loading, setLoading] = useState(false);
   const [error,   setError]   = useState('');
+  const [success, setSuccess] = useState('');
 
   const isRegister = mode === 'register';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -35,6 +46,12 @@ function LoginPage() {
       if (isRegister) {
         if (!name.trim()) { setError('Name is required'); setLoading(false); return; }
         result = await register({ name: name.trim(), email, password });
+        // Keep registration and login flows separate: after successful registration
+        // redirect user to the login view so they can sign in explicitly.
+        setSuccess('Account created successfully. Please sign in.');
+        setLoading(false);
+        navigate('/login');
+        return;
       } else {
         result = await login({ email, password });
       }
@@ -63,134 +80,190 @@ function LoginPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-b from-[#0b3940] via-[#041d22] to-black">
-
-      {/* Background Glow */}
-      <div className="absolute h-95 w-212.5 rounded-full bg-cyan-400/20 blur-[120px] animate-pulse" />
-
-      {/* Card */}
-      <div className="relative z-10 w-95 rounded-[35px] border border-white/30 bg-white/10 p-10 text-white shadow-2xl backdrop-blur-xl">
-
-        {/* Logo */}
-        <h1 className="mb-3 text-center text-4xl font-bold tracking-[6px] drop-shadow-lg">
-          SOLARSCOPE
-        </h1>
-
-        {/* Heading */}
-        <h2 className="mb-6 text-center text-3xl font-light">
-          {isRegister ? 'Create Account' : 'Welcome Back'}
-        </h2>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-
-          {/* Name field — register only */}
-          {isRegister && (
-            <div>
-              <label className="mb-2 block text-sm text-gray-300">Full Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                disabled={loading}
-                className="w-full rounded-2xl border border-white/40 bg-white/5 px-5 py-3 text-white
-                           placeholder-gray-400 outline-none transition duration-300
-                           focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50
-                           disabled:opacity-50"
-              />
-            </div>
-          )}
-
-          {/* Email */}
-          <div>
-            <label className="mb-2 block text-sm text-gray-300">Email address</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@gmail.com"
-              disabled={loading}
-              className="w-full rounded-2xl border border-white/40 bg-white/5 px-5 py-3 text-white
-                         placeholder-gray-400 outline-none transition duration-300
-                         focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50
-                         disabled:opacity-50"
+    <div className="relative min-h-screen w-screen overflow-hidden bg-[#02040A] text-white">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.12),_transparent_28%),radial-gradient(circle_at_20%_20%,_rgba(0,163,255,0.16),_transparent_24%),radial-gradient(circle_at_80%_12%,_rgba(34,211,238,0.1),_transparent_20%),linear-gradient(135deg,_#01030a_0%,_#02040a_45%,_#030812_100%)] nebula-shift" />
+        <div className="absolute inset-0">
+          {starField.map((star) => (
+            <span
+              key={star.id}
+              className="star-twinkle absolute rounded-full bg-white"
+              style={{
+                left: star.left,
+                top: star.top,
+                width: star.size,
+                height: star.size,
+                animationDelay: star.delay,
+                opacity: star.opacity,
+                boxShadow: '0 0 10px rgba(255,255,255,0.7)',
+              }}
             />
-          </div>
-
-          {/* Password */}
-          <div>
-            <label className="mb-2 block text-sm text-gray-300">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••••"
-              disabled={loading}
-              className="w-full rounded-2xl border border-white/40 bg-white/5 px-5 py-3 text-white
-                         placeholder-gray-400 outline-none transition duration-300
-                         focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50
-                         disabled:opacity-50"
-            />
-          </div>
-
-          {/* Error message */}
-          {error && (
-            <p className="rounded-xl bg-red-500/20 border border-red-400/30 px-4 py-2 text-sm text-red-300">
-              {error}
-            </p>
-          )}
-
-          {/* Submit button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl
-                       bg-linear-to-r from-cyan-400 to-sky-500 py-3 text-xl font-bold
-                       transition duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.7)]
-                       disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
-          >
-            {loading && <Loader2 size={18} className="animate-spin" />}
-            {loading
-              ? isRegister ? 'Creating account...' : 'Signing in...'
-              : isRegister ? 'Create Account' : 'Login'
-            }
-          </button>
-        </form>
-
-        {/* Toggle between login / register */}
-        <p className="mt-6 text-center text-sm text-gray-300">
-          {isRegister ? 'Already have an account?' : 'New to SolarScope?'}
-          <span
-            onClick={switchMode}
-            className="ml-2 cursor-pointer font-semibold text-cyan-300 hover:text-cyan-200 transition-colors"
-          >
-            {isRegister ? 'Sign In' : 'Sign Up'}
-          </span>
-        </p>
-
-        {/* Divider */}
-        <div className="mt-5 flex items-center gap-3">
-          <div className="flex-1 h-px bg-white/20" />
-          <span className="text-xs text-gray-400">or</span>
-          <div className="flex-1 h-px bg-white/20" />
+          ))}
         </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.04),_transparent_55%)]" />
+        <div className="absolute bottom-[-16%] left-1/2 h-[42rem] w-[110vw] -translate-x-1/2 rounded-[50%] border border-cyan-400/15 bg-[radial-gradient(circle_at_50%_0%,_rgba(34,211,238,0.26),_rgba(6,12,35,0.06)_45%,_transparent_72%)] shadow-[0_0_220px_rgba(34,211,238,0.14)]" />
+        <div className="absolute bottom-[-8%] left-1/2 h-[34rem] w-[120vw] -translate-x-1/2">
+          <div className="planet-3d" aria-hidden>
+            <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" className="planet-large" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <radialGradient id="earthGlow" cx="30%" cy="30%">
+                  <stop offset="0%" stopColor="#f5fbff" stopOpacity="0.95" />
+                  <stop offset="35%" stopColor="#73d8ff" stopOpacity="0.82" />
+                  <stop offset="70%" stopColor="#1b6fb4" stopOpacity="0.62" />
+                  <stop offset="100%" stopColor="#02101f" stopOpacity="0.18" />
+                </radialGradient>
+                <linearGradient id="atmosphereGlow" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(255,255,255,0.65)" />
+                  <stop offset="100%" stopColor="rgba(34,211,238,0.35)" />
+                </linearGradient>
+                <filter id="earthBlur" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="8" result="b" />
+                  <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
+              </defs>
+              <g filter="url(#earthBlur)">
+                <circle cx="210" cy="200" r="125" fill="url(#earthGlow)" />
+              </g>
+              <g className="planet-rings" transform="translate(0,0)">
+                <ellipse cx="210" cy="240" rx="196" ry="44" fill="none" stroke="rgba(125,211,252,0.22)" strokeWidth="8" strokeLinecap="round" />
+                <ellipse cx="210" cy="240" rx="158" ry="32" fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="2" strokeLinecap="round" />
+              </g>
+              <g className="planet-atmosphere">
+                <ellipse cx="210" cy="210" rx="150" ry="138" fill="none" stroke="url(#atmosphereGlow)" strokeWidth="18" strokeOpacity="0.34" />
+                <ellipse cx="210" cy="210" rx="180" ry="166" fill="none" stroke="rgba(34,211,238,0.16)" strokeWidth="10" strokeOpacity="0.26" />
+              </g>
+              <g opacity="0.8">
+                <path d="M138 176c24-44 74-38 98-6 18 24 14 54-6 70-26 23-68 16-90-23-10-17-10-31-2-41Z" fill="rgba(255,255,255,0.34)" />
+                <path d="M250 147c16 2 34 12 44 27 14 19 13 43-1 61-16 20-45 29-68 19-14-6-25-18-29-36-5-24 8-53 29-64 9-5 16-7 25-7Z" fill="rgba(173, 232, 255,0.24)" />
+              </g>
+            </svg>
+          </div>
+          <div className="particle-field absolute inset-x-0 bottom-[10rem] flex justify-center">
+            <div className="relative h-36 w-[70%] max-w-[46rem]">
+              <span className="particle-float absolute left-[10%] top-[22%] h-2 w-2 rounded-full bg-cyan-300/80" />
+              <span className="particle-float absolute left-[22%] top-[43%] h-1.5 w-1.5 rounded-full bg-sky-200/70" style={{ animationDelay: '1.5s' }} />
+              <span className="particle-float absolute left-[35%] top-[18%] h-2.5 w-2.5 rounded-full bg-white/70" style={{ animationDelay: '2.2s' }} />
+              <span className="particle-float absolute left-[56%] top-[28%] h-1.5 w-1.5 rounded-full bg-cyan-100/80" style={{ animationDelay: '0.8s' }} />
+              <span className="particle-float absolute left-[72%] top-[40%] h-2 w-2 rounded-full bg-sky-300/70" style={{ animationDelay: '2.8s' }} />
+              <span className="particle-float absolute left-[80%] top-[14%] h-1.5 w-1.5 rounded-full bg-white/60" style={{ animationDelay: '1.1s' }} />
+            </div>
+          </div>
+        </div>
+      </div>
 
-        {/* Demo Mode button */}
-        <button
-          type="button"
-          onClick={handleDemoLogin}
-          className="mt-4 w-full rounded-2xl border border-white/20 bg-white/5 py-2.5 text-sm
-                     font-semibold text-gray-300 hover:bg-white/10 hover:text-white
-                     transition duration-200"
-        >
-          🚀 Try Demo — no account needed
-        </button>
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
+        <div className="w-full max-w-6xl">
+          <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center lg:gap-10">
+            <div className="max-w-2xl">
+              <p className="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.6em] text-cyan-300/80">
+                Mission Control
+              </p>
+              <h1 className="text-[clamp(3.6rem,9vw,7.7rem)] font-black uppercase tracking-[0.35em] text-white drop-shadow-[0_0_40px_rgba(34,211,238,0.22)]">
+                SPACE
+              </h1>
+              <p className="mt-4 text-lg font-light leading-8 text-slate-300/95 sm:text-xl">
+                Explore the mysteries of the universe together.
+              </p>
+            </div>
 
-        <p className="mt-2 text-center text-xs text-gray-500">
-          Demo data is temporary and resets on refresh
-        </p>
+            <div className="w-full max-w-[430px] rounded-[32px] border border-white/10 bg-white/6 px-5 py-6 text-white shadow-[0_0_80px_rgba(2,8,23,0.35)] backdrop-blur-2xl sm:px-8 sm:py-8">
+              <h2 className="mb-6 text-center text-2xl font-light tracking-[0.04em] text-slate-100 sm:text-3xl">
+                {isRegister ? 'Create Account' : 'Welcome Back'}
+              </h2>
 
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {isRegister && (
+                  <div>
+                    <label className="mb-2 block text-sm text-slate-300">Full Name</label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Your name"
+                      disabled={loading}
+                      className="w-full rounded-full border border-white/20 bg-slate-950/40 px-5 py-3 text-white placeholder-slate-400 outline-none transition duration-300 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20 disabled:opacity-50"
+                    />
+                  </div>
+                )}
+
+                <div>
+                  <label className="mb-2 block text-sm text-slate-300">Email address</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@gmail.com"
+                    disabled={loading}
+                    className="w-full rounded-full border border-white/20 bg-slate-950/40 px-5 py-3 text-white placeholder-slate-400 outline-none transition duration-300 focus:border-sky-300 focus:ring-2 focus:ring-sky-300/20 disabled:opacity-50"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm text-slate-300">Password</label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••••"
+                    disabled={loading}
+                    className="w-full rounded-full border border-white/20 bg-slate-950/40 px-5 py-3 text-white placeholder-slate-400 outline-none transition duration-300 focus:border-sky-300 focus:ring-2 focus:ring-sky-300/20 disabled:opacity-50"
+                  />
+                </div>
+
+                {error && (
+                  <p className="rounded-2xl border border-red-400/30 bg-red-500/20 px-4 py-2 text-sm text-red-300">
+                    {error}
+                  </p>
+                )}
+                {success && (
+                  <p className="rounded-2xl border border-emerald-400/20 bg-emerald-500/12 px-4 py-2 text-sm text-emerald-200">
+                    {success}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-sky-600 py-3 text-base font-semibold tracking-[0.08em] text-white transition duration-300 hover:scale-[1.01] hover:shadow-[0_0_28px_rgba(34,211,238,0.35)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 sm:text-lg"
+                >
+                  {loading && <Loader2 size={18} className="animate-spin" />}
+                  {loading
+                    ? isRegister ? 'Creating account...' : 'Signing in...'
+                    : isRegister ? 'Create Account' : 'Login'
+                  }
+                </button>
+              </form>
+
+              <p className="mt-6 text-center text-sm text-slate-300 sm:text-base">
+                {isRegister ? 'Already have an account?' : 'New to SolarScope?'}
+                <span
+                  onClick={switchMode}
+                  className="ml-2 cursor-pointer font-semibold text-cyan-300 transition-colors hover:text-cyan-200"
+                >
+                  {isRegister ? 'Sign In' : 'Sign Up'}
+                </span>
+              </p>
+
+              <div className="mt-5 flex items-center gap-3">
+                <div className="h-px flex-1 bg-white/20" />
+                <span className="text-xs text-gray-400 sm:text-sm">or</span>
+                <div className="h-px flex-1 bg-white/20" />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleDemoLogin}
+                className="mt-4 w-full rounded-full border border-cyan-400/20 bg-slate-950/40 py-2.5 text-sm font-semibold text-sky-100 transition duration-200 hover:bg-cyan-500/10 hover:text-sky-50"
+              >
+                🚀 Try Demo — no account needed
+              </button>
+
+              <p className="mt-2 text-center text-xs text-gray-500">
+                Demo data is temporary and resets on refresh
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

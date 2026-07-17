@@ -2,7 +2,11 @@
 // Client-side auth helpers — register, login, session management in localStorage.
 // All components import from here instead of touching localStorage directly.
 
-const BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// In dev: /api goes through Vite proxy → localhost:5000
+// In prod: direct URL to Render backend (CORS is open)
+const BASE_URL = import.meta.env.DEV
+  ? '/api'
+  : 'https://solar-scope-backend.onrender.com/api';
 
 // ── Register a new account ─────────────────────────────────────
 export async function register({ name, email, password }) {

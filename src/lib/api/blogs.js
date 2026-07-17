@@ -3,7 +3,11 @@
 //   - DEMO MODE  : token === 'demo-mode' → uses local in-memory mock data (no backend needed)
 //   - REAL MODE  : uses the Express backend via Vite proxy
 
-const BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// In dev: /api goes through Vite proxy → localhost:5000
+// In prod: direct URL to Render backend (CORS is open)
+const BASE_URL = import.meta.env.DEV
+  ? '/api'
+  : 'https://solar-scope-backend.onrender.com/api';
 
 const getToken = () => localStorage.getItem('solar_token');
 const isDemoMode = () => getToken() === 'demo-mode';

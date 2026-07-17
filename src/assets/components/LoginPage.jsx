@@ -82,7 +82,7 @@ function LoginPage() {
   return (
     <div className="relative min-h-screen w-screen overflow-hidden bg-[#02040A] text-white login-theme">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.12),_transparent_28%),radial-gradient(circle_at_20%_20%,_rgba(0,163,255,0.16),_transparent_24%),radial-gradient(circle_at_80%_12%,_rgba(34,211,238,0.1),_transparent_20%),linear-gradient(135deg,_#01030a_0%,_#02040a_45%,_#030812_100%)] nebula-shift" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.12),transparent_28%),radial-gradient(circle_at_20%_20%,rgba(0,163,255,0.16),transparent_24%),radial-gradient(circle_at_80%_12%,rgba(34,211,238,0.1),transparent_20%),linear-gradient(135deg,#01030a_0%,#02040a_45%,#030812_100%)] nebula-shift" />
         <div className="absolute inset-0">
           {starField.map((star) => (
             <span
@@ -100,9 +100,9 @@ function LoginPage() {
             />
           ))}
         </div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.04),_transparent_55%)]" />
-        <div className="absolute bottom-[-16%] left-1/2 h-[42rem] w-[110vw] -translate-x-1/2 rounded-[50%] border border-cyan-400/15 bg-[radial-gradient(circle_at_50%_0%,_rgba(34,211,238,0.26),_rgba(6,12,35,0.06)_45%,_transparent_72%)] shadow-[0_0_220px_rgba(34,211,238,0.14)]" />
-        <div className="absolute bottom-[-8%] left-1/2 h-[34rem] w-[120vw] -translate-x-1/2">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04),transparent_55%)]" />
+        <div className="absolute bottom-[-16%] left-1/2 h-168 w-[110vw] -translate-x-1/2 rounded-[50%] border border-cyan-400/15 bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.26),rgba(6,12,35,0.06)_45%,transparent_72%)] shadow-[0_0_220px_rgba(34,211,238,0.14)]" />
+        <div className="absolute bottom-[-8%] left-1/2 h-136 w-[120vw] -translate-x-1/2">
           <div className="planet-3d" aria-hidden>
             <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" className="planet-large" preserveAspectRatio="xMidYMid meet">
               <defs>
@@ -138,8 +138,8 @@ function LoginPage() {
               </g>
             </svg>
           </div>
-          <div className="particle-field absolute inset-x-0 bottom-[10rem] flex justify-center">
-            <div className="relative h-36 w-[70%] max-w-[46rem]">
+          <div className="particle-field absolute inset-x-0 bottom-40 flex justify-center">
+            <div className="relative h-36 w-[70%] max-w-184">
               <span className="particle-float absolute left-[10%] top-[22%] h-2 w-2 rounded-full bg-cyan-300/80" />
               <span className="particle-float absolute left-[22%] top-[43%] h-1.5 w-1.5 rounded-full bg-sky-200/70" style={{ animationDelay: '1.5s' }} />
               <span className="particle-float absolute left-[35%] top-[18%] h-2.5 w-2.5 rounded-full bg-white/70" style={{ animationDelay: '2.2s' }} />

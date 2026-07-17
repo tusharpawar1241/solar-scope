@@ -80,7 +80,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen w-screen overflow-hidden bg-[#02040A] text-white">
+    <div className="relative min-h-screen w-screen overflow-hidden bg-[#02040A] text-white login-theme">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.12),_transparent_28%),radial-gradient(circle_at_20%_20%,_rgba(0,163,255,0.16),_transparent_24%),radial-gradient(circle_at_80%_12%,_rgba(34,211,238,0.1),_transparent_20%),linear-gradient(135deg,_#01030a_0%,_#02040a_45%,_#030812_100%)] nebula-shift" />
         <div className="absolute inset-0">

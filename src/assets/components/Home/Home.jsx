@@ -328,7 +328,7 @@ const Home = () => {
                   initial={{ width: 0 }}
                   animate={{ width: 72 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="h-[3px] bg-cyan-400 mb-6 shadow-[0_0_8px_#22d3ee]"
+                  className="h-0.75 bg-cyan-400 mb-6 shadow-[0_0_8px_#22d3ee]"
                 />
 
                 <motion.p

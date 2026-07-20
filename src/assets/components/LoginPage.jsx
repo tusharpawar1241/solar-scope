@@ -140,7 +140,7 @@ function LoginPage() {
           </div>
           <div className="particle-field absolute inset-x-0 bottom-40 flex justify-center">
             <div className="relative h-36 w-[70%] max-w-184">
-              <span className="particle-float absolute left-[10%] top-[22%] h-2 w-2 rounded-full bg-cyan-300/80" />
+             <span className="particle-float absolute left-[10%] top-[22%] h-2 w-2 rounded-full bg-cyan-300/80" />
               <span className="particle-float absolute left-[22%] top-[43%] h-1.5 w-1.5 rounded-full bg-sky-200/70" style={{ animationDelay: '1.5s' }} />
               <span className="particle-float absolute left-[35%] top-[18%] h-2.5 w-2.5 rounded-full bg-white/70" style={{ animationDelay: '2.2s' }} />
               <span className="particle-float absolute left-[56%] top-[28%] h-1.5 w-1.5 rounded-full bg-cyan-100/80" style={{ animationDelay: '0.8s' }} />
@@ -154,19 +154,7 @@ function LoginPage() {
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
         <div className="w-full max-w-6xl">
           <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center lg:gap-10">
-            <div className="max-w-2xl">
-              <p className="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.6em] text-cyan-300/80">
-                Mission Control
-              </p>
-              <h1 className="text-[clamp(3.6rem,9vw,7.7rem)] font-black uppercase tracking-[0.35em] text-white drop-shadow-[0_0_40px_rgba(34,211,238,0.22)]">
-                SPACE
-              </h1>
-              <p className="mt-4 text-lg font-light leading-8 text-slate-300/95 sm:text-xl">
-                Explore the mysteries of the universe together.
-              </p>
-            </div>
-
-            <div className="w-full max-w-[430px] rounded-[32px] border border-white/10 bg-white/6 px-5 py-6 text-white shadow-[0_0_80px_rgba(2,8,23,0.35)] backdrop-blur-2xl sm:px-8 sm:py-8">
+            <div className="w-full max-w-107.5 rounded-4xl border border-white/10 bg-white/6 px-5 py-6 text-white shadow-[0_0_80px_rgba(2,8,23,0.35)] backdrop-blur-2xl sm:px-8 sm:py-8">
               <h2 className="mb-6 text-center text-2xl font-light tracking-[0.04em] text-slate-100 sm:text-3xl">
                 {isRegister ? 'Create Account' : 'Welcome Back'}
               </h2>

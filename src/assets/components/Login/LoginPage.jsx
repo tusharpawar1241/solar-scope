@@ -1,11 +1,11 @@
-// src/assets/components/LoginPage.jsx
+// src/assets/components/Login/LoginPage.jsx
 // Handles both Login and Register in one component.
 // On success: saves token + user to localStorage, redirects to home.
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
-import { login, register, saveSession, enterDemoMode } from '../../lib/api/auth';
+import { login, register, saveSession, enterDemoMode } from '../../../lib/api/auth';
 
 const starField = Array.from({ length: 110 }, (_, index) => ({
   id: index,

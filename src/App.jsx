@@ -5,9 +5,10 @@
 
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home      from './assets/components/Home/Home';
-import BlogPage  from './assets/components/blog/BlogPage';
+// import BlogPage  from './assets/components/blog/BlogPage';
 import Navbar    from './assets/components/Navbar';
-import LoginPage from './assets/components/LoginPage';
+import LoginPage from './assets/components/Login/LoginPage';
+import BlogPage from './assets/components/Blogs/BlogPage';
 
 const App = () => {
   return (
@@ -28,11 +29,7 @@ const App = () => {
 
                 <Route
                   path="/blog"
-                  element={
-                    <main className="max-w-6xl mx-auto px-4 py-8">
-                      <BlogPage />
-                    </main>
-                  }
+                  element={<BlogPage />}
                 />
 
                 <Route

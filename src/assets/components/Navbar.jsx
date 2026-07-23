@@ -1,7 +1,7 @@
 // src/assets/components/Navbar.jsx
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { X, Menu, LogOut } from 'lucide-react';
+import { X, Menu, LogOut, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getSession, clearSession } from '../../lib/api/auth';
 
@@ -10,7 +10,7 @@ const Navbar = () => {
   const location  = useLocation();
   const navigate  = useNavigate();
 
-  // Read the logged-in user's name to show in the navbar
+  // Read logged-in user session
   const { user } = getSession();
 
   const navItems = [
@@ -20,10 +20,12 @@ const Navbar = () => {
   ];
 
   const isLoggedIn = !!user;
+  const isAdmin = user?.role === 'admin' || sessionStorage.getItem('solar_admin_unlocked') === 'true';
 
   const isActive = (path) => location.pathname === path;
 
   const handleLogout = () => {
+    sessionStorage.removeItem('solar_admin_unlocked');
     clearSession();           // remove token + user from localStorage
     navigate('/login');       // redirect to login page
   };
@@ -65,7 +67,22 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {/* User section: show name+logout if logged in, Login link if not */}
+          {/* Admin link - only shown to admin users */}
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all border ${
+                isActive('/admin') 
+                  ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.2)]' 
+                  : 'bg-white/5 text-white/70 border-white/20 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <ShieldCheck size={14} className="text-cyan-400" />
+              <span>Admin Portal</span>
+            </Link>
+          )}
+
+          {/* User section */}
           {isLoggedIn ? (
             <div className="flex items-center gap-3 ml-4 pl-4 border-l border-slate-700">
               <span className="text-sm text-slate-400">
@@ -107,6 +124,15 @@ const Navbar = () => {
               {item.name}
             </Link>
           ))}
+          {isAdmin && (
+            <Link
+              to="/admin"
+              onClick={() => setIsOpen(false)}
+              className="text-sm font-bold text-cyan-400 py-2"
+            >
+              Admin Portal
+            </Link>
+          )}
           {isLoggedIn ? (
             <button
               onClick={handleLogout}

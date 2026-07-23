@@ -1,14 +1,14 @@
 // src/App.jsx
-// Public routing — no auth gate on any route.
-// Anyone can browse Home, Blog, and About.
-// Auth is enforced at the action level (create/edit/delete a post requires login).
+// Public routing — no auth gate on public routes.
+// AdminPanel is protected by AdminRoute.
 
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home      from './assets/components/Home/Home';
-// import BlogPage  from './assets/components/blog/BlogPage';
 import Navbar    from './assets/components/Navbar';
 import LoginPage from './assets/components/Login/LoginPage';
 import BlogPage from './assets/components/Blogs/BlogPage';
+import AdminPanel from './assets/components/Admin/AdminPanel';
+import AdminRoute from './assets/components/Admin/AdminRoute';
 
 const App = () => {
   return (
@@ -27,9 +27,16 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
 
-                <Route
-                  path="/blog"
-                  element={<BlogPage />}
+                <Route path="/blog" element={<BlogPage />} />
+
+                {/* ── Protected Admin Portal Route ────────────── */}
+                <Route 
+                  path="/admin" 
+                  element={
+                    <AdminRoute>
+                      <AdminPanel />
+                    </AdminRoute>
+                  } 
                 />
 
                 <Route

@@ -6,8 +6,43 @@ import SideDockPill from './SideDockPill';
 import BottomControlPill from './BottomControlPill';
 import Coverflow3D from './Coverflow3D';
 import BlogDetailModal from './BlogDetailModal';
-import { Compass, Orbit, Check } from 'lucide-react';
+import CreateBlogModal from './CreateBlogModal';
+import UserSubmissionsModal from './UserSubmissionsModal';
+import { Compass, Orbit, Check, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const INITIAL_SUBMISSIONS = [
+  {
+    id: 'sub-001',
+    title: 'Quantum Gravitational Anomalies Near Event Horizons',
+    category: 'Quantum Physics & Cosmology',
+    sublocation: 'EHT Computer Observatory',
+    location: 'SolarScope Research',
+    coords: 'Theoretical Computation',
+    description: 'Analyzing metric fluctuations and quantum foam behavior around rotating Kerr black holes.',
+    fullArticle: 'Quantum gravity suggests that spacetime loses smooth continuity at Planck scales...',
+    image: 'https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=90&w=1920&auto=format&fit=crop',
+    author: 'Dr. Astra Lin',
+    submittedAt: 'July 21, 2026',
+    status: 'pending',
+    tags: ['Quantum', 'Gravity', 'Black Hole']
+  },
+  {
+    id: 'sub-002',
+    title: 'Solar Flare Spectrogram Analysis (SDO Campaign)',
+    category: 'Solar Science & Heliophysics',
+    sublocation: 'SDO Helioseismology Lab',
+    location: 'SolarScope Research',
+    coords: 'L1 Lagrange Point',
+    description: 'Ultraviolet magnetic reconnection observations captured during solar maximum flares.',
+    fullArticle: 'Solar energetic particle streams accelerate rapidly under magnetic reconnection...',
+    image: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?q=90&w=1920&auto=format&fit=crop',
+    author: 'Dr. Astra Lin',
+    submittedAt: 'July 18, 2026',
+    status: 'approved',
+    tags: ['Sun', 'SDO', 'Solar Flare']
+  }
+];
 
 const SpatialBlogPage = () => {
   const [selectedCollectionId, setSelectedCollectionId] = useState('space-quantum-frontier');
@@ -17,6 +52,21 @@ const SpatialBlogPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCategoryPickerOpen, setIsCategoryPickerOpen] = useState(false);
   const [likedPosts, setLikedPosts] = useState({});
+
+  // Modals for Create Blog and Status Tracking
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+
+  // Submissions State with LocalStorage persistence
+  const [submissions, setSubmissions] = useState(() => {
+    const saved = localStorage.getItem('solar_user_submissions');
+    return saved ? JSON.parse(saved) : INITIAL_SUBMISSIONS;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('solar_user_submissions', JSON.stringify(submissions));
+  }, [submissions]);
 
   const currentCollection = BLOG_COLLECTIONS.find(c => c.id === selectedCollectionId) || BLOG_COLLECTIONS[0];
   
@@ -32,7 +82,7 @@ const SpatialBlogPage = () => {
   const safeActiveIndex = Math.min(activeIndex, totalItems - 1);
   const activePost = posts[safeActiveIndex] || posts[0];
 
-  // Infinite Reel Continuation Navigation (< and > arrow keys)
+  // Navigation
   const handleNext = () => {
     if (posts.length === 0) return;
     setActiveIndex((prev) => (prev + 1) % posts.length);
@@ -45,7 +95,7 @@ const SpatialBlogPage = () => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (isModalOpen || isCategoryPickerOpen) return;
+      if (isModalOpen || isCategoryPickerOpen || isCreateModalOpen || isStatusModalOpen) return;
       if (e.key === 'ArrowLeft') {
         handlePrev();
       } else if (e.key === 'ArrowRight') {
@@ -54,7 +104,7 @@ const SpatialBlogPage = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [posts.length, isModalOpen, isCategoryPickerOpen]);
+  }, [posts.length, isModalOpen, isCategoryPickerOpen, isCreateModalOpen, isStatusModalOpen]);
 
   const handleExpandCard = (post) => {
     setSelectedPost(post);
@@ -68,12 +118,30 @@ const SpatialBlogPage = () => {
     }));
   };
 
+  // Submit new blog draft
+  const handleSubmitBlog = (newBlogDraft) => {
+    setSubmissions([newBlogDraft, ...submissions]);
+    showToast('🚀 Blog submitted! Pending Admin Approval.');
+  };
+
+  // Delete submission
+  const handleDeleteSubmission = (id) => {
+    setSubmissions(submissions.filter(s => s.id !== id));
+    showToast('Deleted submission.');
+  };
+
+  const showToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(''), 3500);
+  };
+
+  const pendingCount = submissions.filter(s => s.status === 'pending').length;
+
   return (
     <div className="relative h-[calc(100vh-80px)] w-full bg-[#020307] text-white flex flex-col justify-between overflow-hidden select-none font-sans">
       
       {/* VIBRANT DEEP SPACE & COSMIC ATMOSPHERE BACKGROUND */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Background Image Space Field Simulation */}
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-40 filter blur-2xl scale-110 transition-all duration-1000 brightness-110"
           style={{ 
@@ -81,10 +149,8 @@ const SpatialBlogPage = () => {
           }}
         />
 
-        {/* Ambient Dark Cosmic Radial Overlay */}
         <div className="absolute inset-0 bg-radial from-slate-950/10 via-[#03050c]/85 to-[#010204]" />
 
-        {/* Shimmering Solar & Cyan Nebula Glow Spheres */}
         <div className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] rounded-full bg-cyan-600/20 blur-[140px] animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] rounded-full bg-indigo-600/20 blur-[140px] animate-pulse" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[35rem] h-[35rem] rounded-full bg-cyan-400/10 blur-[160px]" />
@@ -92,12 +158,13 @@ const SpatialBlogPage = () => {
 
       {/* TOP FLOATING VISIONOS BROWSER BAR */}
       <TopBarPill
-        currentCollectionTitle={`SolarScope • ${currentCollection.title}`}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         onPrevCard={handlePrev}
         onNextCard={handleNext}
-        onCategorySelect={() => setIsCategoryPickerOpen(true)}
+        onOpenCreateModal={() => setIsCreateModalOpen(true)}
+        onOpenStatusModal={() => setIsStatusModalOpen(true)}
+        pendingCount={pendingCount}
       />
 
       {/* LEFT VERTICAL FLOATING DOCK */}
@@ -154,6 +221,42 @@ const SpatialBlogPage = () => {
         isLiked={selectedPost ? !!likedPosts[selectedPost.id] : false}
         onLike={() => selectedPost && toggleLike(selectedPost.id)}
       />
+
+      {/* WRITE NEW BLOG MODAL */}
+      <CreateBlogModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSubmitBlog={handleSubmitBlog}
+      />
+
+      {/* USER SUBMISSIONS & APPROVAL STATUS DASHBOARD MODAL */}
+      <UserSubmissionsModal
+        isOpen={isStatusModalOpen}
+        onClose={() => setIsStatusModalOpen(false)}
+        submissions={submissions}
+        onDeleteSubmission={handleDeleteSubmission}
+        onOpenCreate={() => setIsCreateModalOpen(true)}
+        onPreviewDraft={(draft) => {
+          setIsStatusModalOpen(false);
+          setSelectedPost(draft);
+          setIsModalOpen(true);
+        }}
+      />
+
+      {/* NOTIFICATION TOAST BANNER */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            className="fixed bottom-16 left-1/2 -translate-x-1/2 z-50 bg-cyan-500 text-slate-950 px-5 py-2.5 rounded-full font-bold text-xs shadow-[0_0_25px_rgba(34,211,238,0.6)] flex items-center gap-2"
+          >
+            <Sparkles size={16} />
+            <span>{toastMessage}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* CATEGORY COLLECTION SELECTOR MODAL */}
       <AnimatePresence>

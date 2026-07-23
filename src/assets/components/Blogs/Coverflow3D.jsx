@@ -124,19 +124,19 @@ const Coverflow3D = ({
               }}
               transition={{
                 type: "spring",
-                stiffness: 290,
-                damping: 28,
-                mass: 0.75
+                stiffness: 220,
+                damping: 24,
+                mass: 0.8
               }}
               style={{
                 zIndex,
                 transformStyle: 'preserve-3d',
                 position: 'absolute'
               }}
-              className={`w-[215px] sm:w-[250px] md:w-[280px] h-[330px] sm:h-[365px] md:h-[395px] rounded-[2rem] cursor-pointer overflow-hidden border backdrop-blur-xl transition-shadow duration-500 ${
+              className={`w-[215px] sm:w-[250px] md:w-[280px] h-[330px] sm:h-[365px] md:h-[395px] rounded-[2rem] cursor-pointer overflow-hidden border backdrop-blur-xl ${
                 isActive 
-                  ? 'border-white/50 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_35px_rgba(34,211,238,0.3)] bg-slate-900/60 ring-1 ring-cyan-300/50' 
-                  : 'border-white/25 shadow-[0_12px_40px_rgba(0,0,0,0.5)] bg-slate-900/50 hover:border-white/45'
+                  ? 'border-white/40 shadow-2xl bg-slate-900/70 ring-1 ring-white/20' 
+                  : 'border-white/20 shadow-xl bg-slate-900/50 hover:border-white/35'
               }`}
             >
               

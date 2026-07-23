@@ -51,7 +51,7 @@ const UserSubmissionsModal = ({ isOpen, onClose, submissions = [], onDeleteSubmi
           initial={{ opacity: 0, scale: 0.92, y: 25 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 25 }}
-          className="relative w-full max-w-4xl bg-slate-950/95 border border-cyan-500/35 rounded-3xl p-6 shadow-[0_25px_80px_rgba(0,0,0,0.9)] backdrop-blur-2xl text-white z-10 my-auto"
+          className="relative w-full max-w-4xl bg-slate-950/95 border border-slate-800 rounded-3xl p-6 shadow-2xl backdrop-blur-2xl text-white z-10 my-auto"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">

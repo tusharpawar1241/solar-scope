@@ -95,16 +95,16 @@ const AdminPanel = ({ customSubmissions, onApproveSubmission, onRejectSubmission
         <div className="flex items-center gap-3">
           <button
             onClick={() => setActiveTab('new')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-extrabold transition-all ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
               activeTab === 'new'
-                ? 'bg-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.35)]'
-                : 'bg-white/5 hover:bg-white/10 text-white/70 border border-white/10'
+                ? 'bg-slate-100 text-slate-950 font-extrabold shadow-md'
+                : 'bg-slate-900/60 hover:bg-slate-900 text-slate-400 border border-slate-800'
             }`}
           >
             <Inbox size={15} />
             <span>New Approvals</span>
             <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
-              activeTab === 'new' ? 'bg-slate-950 text-cyan-300' : 'bg-white/10 text-white/80'
+              activeTab === 'new' ? 'bg-slate-950 text-cyan-300' : 'bg-slate-800 text-slate-300'
             }`}>
               {pendingSubmissions.length}
             </span>
@@ -112,16 +112,16 @@ const AdminPanel = ({ customSubmissions, onApproveSubmission, onRejectSubmission
 
           <button
             onClick={() => setActiveTab('history')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-extrabold transition-all ${
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
               activeTab === 'history'
-                ? 'bg-cyan-500 text-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.35)]'
-                : 'bg-white/5 hover:bg-white/10 text-white/70 border border-white/10'
+                ? 'bg-slate-100 text-slate-950 font-extrabold shadow-md'
+                : 'bg-slate-900/60 hover:bg-slate-900 text-slate-400 border border-slate-800'
             }`}
           >
             <History size={15} />
             <span>Approval History</span>
             <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
-              activeTab === 'history' ? 'bg-slate-950 text-cyan-300' : 'bg-white/10 text-white/80'
+              activeTab === 'history' ? 'bg-slate-950 text-cyan-300' : 'bg-slate-800 text-slate-300'
             }`}>
               {historySubmissions.length}
             </span>

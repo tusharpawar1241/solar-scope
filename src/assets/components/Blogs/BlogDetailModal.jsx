@@ -111,7 +111,7 @@ const BlogDetailModal = ({ post, isOpen, onClose, isLiked, onLike }) => {
           transition={{ type: "spring", damping: 26, stiffness: 280 }}
           className={`relative w-full ${
             isCommentsOpen ? 'max-w-6xl' : 'max-w-3xl'
-          } max-h-[90vh] bg-slate-950/95 border border-cyan-500/35 rounded-3xl overflow-hidden shadow-[0_25px_80px_rgba(0,0,0,0.95)] backdrop-blur-2xl flex flex-col md:flex-row z-10 text-white transition-all duration-500`}
+          } max-h-[90vh] bg-slate-950/95 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-2xl flex flex-col md:flex-row z-10 text-white transition-all duration-500`}
         >
 
           {/* LEFT PANEL: MAIN BLOG ARTICLE READER */}

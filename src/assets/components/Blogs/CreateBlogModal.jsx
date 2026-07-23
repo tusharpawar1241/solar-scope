@@ -68,7 +68,7 @@ const CreateBlogModal = ({ isOpen, onClose, onSubmitBlog }) => {
           initial={{ opacity: 0, scale: 0.92, y: 25 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 25 }}
-          className="relative w-full max-w-2xl bg-slate-950/95 border border-cyan-500/40 rounded-3xl p-6 shadow-[0_25px_80px_rgba(0,0,0,0.9)] backdrop-blur-2xl text-white z-10 my-auto"
+          className="relative w-full max-w-2xl bg-slate-950/95 border border-slate-800 rounded-3xl p-6 shadow-2xl backdrop-blur-2xl text-white z-10 my-auto"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
@@ -214,7 +214,7 @@ const CreateBlogModal = ({ isOpen, onClose, onSubmitBlog }) => {
 
               <button
                 type="submit"
-                className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs transition-all shadow-[0_0_20px_rgba(34,211,238,0.4)] active:scale-95"
+                className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-slate-100 hover:bg-white text-slate-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md active:scale-95"
               >
                 <Send size={14} />
                 <span>Submit for Admin Approval</span>

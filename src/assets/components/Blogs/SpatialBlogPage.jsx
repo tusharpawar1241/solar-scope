@@ -138,22 +138,12 @@ const SpatialBlogPage = () => {
   const pendingCount = submissions.filter(s => s.status === 'pending').length;
 
   return (
-    <div className="relative h-[calc(100vh-80px)] w-full bg-[#020307] text-white flex flex-col justify-between overflow-hidden select-none font-sans">
+    <div className="relative h-[calc(100vh-80px)] w-full bg-[#050510] text-white flex flex-col justify-between overflow-hidden select-none font-sans">
       
-      {/* VIBRANT DEEP SPACE & COSMIC ATMOSPHERE BACKGROUND */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-40 filter blur-2xl scale-110 transition-all duration-1000 brightness-110"
-          style={{ 
-            backgroundImage: `url(${activePost?.image || 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=90&w=1920&auto=format&fit=crop'})`
-          }}
-        />
-
-        <div className="absolute inset-0 bg-radial from-slate-950/10 via-[#03050c]/85 to-[#010204]" />
-
-        <div className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] rounded-full bg-cyan-600/20 blur-[140px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] rounded-full bg-indigo-600/20 blur-[140px] animate-pulse" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[35rem] h-[35rem] rounded-full bg-cyan-400/10 blur-[160px]" />
+      {/* Background space elements (Same as Home page) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,16,35,0.4)_0%,rgba(5,5,16,1)_80%)]" />
+        <div className="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/dark-matter.png')] opacity-30" />
       </div>
 
       {/* TOP FLOATING VISIONOS BROWSER BAR */}

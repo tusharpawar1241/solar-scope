@@ -27,7 +27,7 @@ const SideDockPill = ({ activePostTitle, onLike, isLiked }) => {
           </span>
         </button>
 
-        <div className="h-[1px] w-6 bg-slate-800 mx-auto" />
+        <div className="h-px w-6 bg-slate-800 mx-auto" />
 
         {/* Favorite / Heart Icon */}
         <button
@@ -43,7 +43,7 @@ const SideDockPill = ({ activePostTitle, onLike, isLiked }) => {
           </span>
         </button>
 
-        <div className="h-[1px] w-6 bg-slate-800 mx-auto" />
+        <div className="h-px w-6 bg-slate-800 mx-auto" />
 
         {/* Profile / Author Icon */}
         <button

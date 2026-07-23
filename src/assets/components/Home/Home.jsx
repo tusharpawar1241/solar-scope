@@ -70,7 +70,7 @@ const planets = [
 ];
 
 const Home = () => {
-  const [activeIndex, setActiveIndex] = useState(0); // Default to Mercury
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isDetailMode, setIsDetailMode] = useState(false);
 
   const handleNext = () => {
@@ -120,13 +120,11 @@ const Home = () => {
     };
   }, [isDetailMode, activeIndex]);
 
-  // Planet placement variants - using absolute pixel values (numbers) for 'bottom' key to ensure Framer Motion
-  // executes a perfectly smooth interpolation without unit mixing issues (like string vs percentage)
   const planetVariants = {
     active: {
       x: '-50%',
       left: '50%',
-      bottom: -140,
+      bottom: -65,
       scale: 3.4,
       opacity: 1,
       zIndex: 30,
@@ -135,7 +133,7 @@ const Home = () => {
     leftPreview: {
       x: '-50%',
       left: '16%',
-      bottom: 100,
+      bottom: 140,
       scale: 0.8,
       opacity: 0.45,
       zIndex: 20,
@@ -144,7 +142,7 @@ const Home = () => {
     rightPreview: {
       x: '-50%',
       left: '84%',
-      bottom: 100,
+      bottom: 140,
       scale: 0.8,
       opacity: 0.45,
       zIndex: 20,
@@ -153,7 +151,7 @@ const Home = () => {
     leftOut: {
       x: '-50%',
       left: '50%',
-      bottom: 360,
+      bottom: 380,
       scale: 0.15,
       opacity: 0,
       zIndex: 5,
@@ -162,7 +160,7 @@ const Home = () => {
     rightOut: {
       x: '-50%',
       left: '50%',
-      bottom: 360,
+      bottom: 380,
       scale: 0.15,
       opacity: 0,
       zIndex: 5,
@@ -171,7 +169,7 @@ const Home = () => {
     detail: {
       x: '-50%',
       left: '70%',
-      bottom: 180, // Pixel offset matches ~22% on standard viewports, vertically centered with left text
+      bottom: 180,
       scale: 2.6,
       opacity: 1,
       zIndex: 30,
@@ -205,11 +203,9 @@ const Home = () => {
 
   return (
     <div className="relative w-full h-[calc(100vh-82px)] overflow-hidden bg-[#050510]">
-      {/* Background space elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,16,35,0.4)_0%,rgba(5,5,16,1)_80%)] z-0" />
       <div className="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/dark-matter.png')] opacity-30 z-0" />
 
-      {/* Back to Browser Button (Detail Mode Only) */}
       <AnimatePresence>
         {isDetailMode && (
           <motion.div
@@ -229,20 +225,18 @@ const Home = () => {
         )}
       </AnimatePresence>
 
-      {/* Main Content Area */}
       <div className="absolute inset-0 z-40 pointer-events-none select-none">
         <AnimatePresence mode="wait">
           {!isDetailMode ? (
-            /* ──────── CAROUSEL MODE CONTENT ──────── */
             <motion.div
               key="carousel-content"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute inset-0 flex flex-col items-center justify-center"
+              className="absolute inset-0 flex flex-col items-center justify-start pt-12 sm:pt-16"
             >
-              <div className="max-w-xl text-center px-6 mb-24">
+              <div className="max-w-xl text-center px-6 mb-6">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeIndex}
@@ -262,7 +256,7 @@ const Home = () => {
                     <motion.h1
                       variants={textVariants}
                       transition={{ duration: 0.4, delay: 0.1 }}
-                      className="text-6xl md:text-8xl font-black tracking-wider mb-6 bg-clip-text text-transparent bg-linear-to-b from-white to-slate-400"
+                      className="text-6xl md:text-8xl font-black tracking-wider mb-5 bg-clip-text text-transparent bg-linear-to-b from-white to-slate-400"
                     >
                       {planets[activeIndex].name}
                     </motion.h1>
@@ -277,25 +271,17 @@ const Home = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Get Started Button */}
-              <div className="flex flex-col items-center gap-3 pointer-events-auto mt-2">
-                <button
-                  onClick={() => setIsDetailMode(true)}
-                  className="px-8 py-3.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer"
-                >
-                  Get Started
-                </button>
+              <div className="flex flex-col items-center gap-2 pointer-events-auto mt-2">
                 <div 
                   onClick={() => setIsDetailMode(true)}
-                  className="flex flex-col items-center text-slate-500 hover:text-cyan-400 transition-colors cursor-pointer text-xs uppercase tracking-widest font-bold mt-2 animate-bounce"
+                  className="flex flex-col items-center text-slate-500 hover:text-cyan-400 transition-colors cursor-pointer text-xs uppercase tracking-widest font-bold animate-bounce"
                 >
-                  <span className="mb-1">Scroll Down to Explore</span>
+                  <span className="mb-1">Explore Details</span>
                   <ChevronDown className="w-4 h-4" />
                 </div>
               </div>
             </motion.div>
           ) : (
-            /* ──────── DETAIL MODE CONTENT ──────── */
             <motion.div
               key="detail-content"
               initial={{ opacity: 0 }}
@@ -323,7 +309,6 @@ const Home = () => {
                   {planets[activeIndex].name}
                 </motion.h1>
 
-                {/* Divider Line */}
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: 72 }}
@@ -340,7 +325,6 @@ const Home = () => {
                   {planets[activeIndex].description}
                 </motion.p>
 
-                {/* Action Buttons Row */}
                 <motion.div
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -360,7 +344,6 @@ const Home = () => {
         </AnimatePresence>
       </div>
 
-      {/* Interactive Navigation Arrows (Carousel Mode Only) */}
       <AnimatePresence>
         {!isDetailMode && (
           <motion.div
@@ -385,7 +368,6 @@ const Home = () => {
         )}
       </AnimatePresence>
 
-      {/* Orbital Sliders Track Container */}
       <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
         {planets.map((planet, idx) => {
           const { Component } = planet;

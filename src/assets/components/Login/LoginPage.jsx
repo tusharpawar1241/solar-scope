@@ -171,7 +171,7 @@ function LoginPage() {
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
         <div className="w-full max-w-6xl">
           <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center lg:gap-10">
-            <div className="w-full max-w-[420px] rounded-4xl border border-white/10 bg-white/6 px-6 py-8 text-white shadow-[0_0_80px_rgba(2,8,23,0.35)] backdrop-blur-2xl sm:px-8 sm:py-9">
+            <div className="w-full max-w-105 rounded-4xl border border-white/10 bg-white/6 px-6 py-8 text-white shadow-[0_0_80px_rgba(2,8,23,0.35)] backdrop-blur-2xl sm:px-8 sm:py-9">
               <h2 className="mb-6 text-center text-2xl font-light tracking-[0.04em] text-slate-100 sm:text-3xl">
                 {isRegister ? 'Create Account' : 'Welcome Back'}
               </h2>

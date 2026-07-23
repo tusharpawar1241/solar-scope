@@ -1,4 +1,3 @@
-// src/assets/components/Blogs/TopBarPill.jsx
 import React from 'react';
 import { 
   ChevronLeft, 
@@ -22,9 +21,7 @@ const TopBarPill = ({
     <div className="w-full flex justify-center px-4 py-3 z-30 select-none">
       <div className="w-full max-w-4xl backdrop-blur-2xl bg-slate-900/60 border border-slate-800 rounded-full px-3 sm:px-5 py-2 flex items-center justify-between shadow-xl transition-all hover:bg-slate-900/80 hover:border-slate-700">
         
-        {/* Left Section: Blog Submissions Status + Nav Controls */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Status Button */}
           <button 
             onClick={onOpenStatusModal}
             title="My Blog Submissions & Status"
@@ -41,7 +38,6 @@ const TopBarPill = ({
 
           <div className="h-4 w-[1px] bg-slate-800" />
 
-          {/* Nav Arrows */}
           <button 
             onClick={onPrevCard}
             title="Previous Space Post"
@@ -59,7 +55,6 @@ const TopBarPill = ({
           </button>
         </div>
 
-        {/* Center Section: Simple Clean Search Bar */}
         <div className="flex-1 max-w-md mx-2 sm:mx-4 flex items-center bg-slate-950/60 border border-slate-800 rounded-full px-3.5 py-1.5 gap-2 text-xs sm:text-sm transition-all focus-within:border-cyan-500/40">
           <Search size={15} className="text-slate-400 shrink-0" />
           
@@ -82,7 +77,6 @@ const TopBarPill = ({
           )}
         </div>
 
-        {/* Right Section: Add (+) Button to Write Blog */}
         <div className="flex items-center">
           <button 
             onClick={onOpenCreateModal}

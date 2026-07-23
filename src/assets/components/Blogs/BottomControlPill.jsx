@@ -47,7 +47,7 @@ const BottomControlPill = ({
                 {currentIndex + 1}/{totalItems}
               </span>
             </h4>
-            <p className="text-slate-400 text-[11px] font-medium leading-tight truncate max-w-[180px] sm:max-w-[240px]">
+            <p className="text-slate-400 text-[11px] font-medium leading-tight truncate max-w-45 sm:max-w-60">
               {activePost?.sublocation || collectionSubtitle}
             </p>
           </div>

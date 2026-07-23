@@ -95,7 +95,7 @@ const CreateBlogModal = ({ isOpen, onClose, onSubmitBlog }) => {
             
             {/* Title */}
             <div>
-              <label className="block text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
                 <BookOpen size={13} className="text-cyan-400" />
                 Blog Title *
               </label>
@@ -126,7 +126,7 @@ const CreateBlogModal = ({ isOpen, onClose, onSubmitBlog }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
+                <label className="text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
                   <Tag size={13} className="text-cyan-400" />
                   Tags (Comma Separated)
                 </label>
@@ -154,7 +154,7 @@ const CreateBlogModal = ({ isOpen, onClose, onSubmitBlog }) => {
 
             {/* Abstract / Summary */}
             <div>
-              <label className="block text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
                 <AlignLeft size={13} className="text-cyan-400" />
                 Short Abstract / Summary *
               </label>
@@ -183,7 +183,7 @@ const CreateBlogModal = ({ isOpen, onClose, onSubmitBlog }) => {
 
             {/* Cover Image URL */}
             <div>
-              <label className="block text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
+              <label className="text-xs font-bold text-cyan-200 mb-1.5 flex items-center gap-1.5">
                 <ImageIcon size={13} className="text-cyan-400" />
                 Cover Image URL (Optional)
               </label>

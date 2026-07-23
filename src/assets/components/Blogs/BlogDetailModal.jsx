@@ -127,7 +127,7 @@ const BlogDetailModal = ({ post, isOpen, onClose, isLiked, onLike }) => {
                   e.target.src = 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?q=90&w=1920&auto=format&fit=crop';
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-black/30" />
+              <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/40 to-black/30" />
 
               {/* Top controls inside image */}
               <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
@@ -191,7 +191,7 @@ const BlogDetailModal = ({ post, isOpen, onClose, isLiked, onLike }) => {
               {/* Meta bar: Author & Follow Button */}
               <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center font-extrabold text-white shadow-md text-sm">
+                  <div className="w-9 h-9 rounded-full bg-linear-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center font-extrabold text-white shadow-md text-sm">
                     {post.author?.[0] || 'A'}
                   </div>
                   <div>

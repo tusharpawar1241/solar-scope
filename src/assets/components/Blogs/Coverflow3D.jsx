@@ -67,7 +67,7 @@ const Coverflow3D = ({
       
       {/* Perspective Container */}
       <div 
-        className="relative w-full max-w-6xl h-[340px] sm:h-[370px] md:h-[400px] flex items-center justify-center"
+        className="relative w-full max-w-6xl h-85 sm:h-92.5 md:h-100 flex items-center justify-center"
         style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
       >
 
@@ -133,7 +133,7 @@ const Coverflow3D = ({
                 transformStyle: 'preserve-3d',
                 position: 'absolute'
               }}
-              className={`w-[215px] sm:w-[250px] md:w-[280px] h-[330px] sm:h-[365px] md:h-[395px] rounded-[2rem] cursor-pointer overflow-hidden border backdrop-blur-xl ${
+              className={`w-53.75 sm:w-62.5 md:w-70 h-82.5 sm:h-91.25 md:h-98.75 rounded-4xl cursor-pointer overflow-hidden border backdrop-blur-xl ${
                 isActive 
                   ? 'border-white/40 shadow-2xl bg-slate-900/70 ring-1 ring-white/20' 
                   : 'border-white/20 shadow-xl bg-slate-900/50 hover:border-white/35'
@@ -154,8 +154,8 @@ const Coverflow3D = ({
                 />
                 
                 {/* Crisp Gradient Overlay */}
-                <div className="absolute bottom-0 inset-x-0 h-3/5 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
-                <div className="absolute top-0 inset-x-0 h-1/4 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 inset-x-0 h-3/5 bg-linear-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
+                <div className="absolute top-0 inset-x-0 h-1/4 bg-linear-to-b from-black/40 to-transparent pointer-events-none" />
               </div>
 
               {/* CARD CONTENT LAYER */}
@@ -215,7 +215,7 @@ const Coverflow3D = ({
                     <div className="pt-2 border-t border-white/20 flex items-center justify-between text-xs text-white">
                       {/* Left: Author Avatar + Name */}
                       <div className="flex items-center gap-2 truncate max-w-[65%]">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-[10px] font-extrabold text-slate-950 shadow-md shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-linear-to-tr from-cyan-400 to-indigo-500 flex items-center justify-center text-[10px] font-extrabold text-slate-950 shadow-md shrink-0">
                           {post.author?.[0] || 'A'}
                         </div>
                         <span className="text-xs font-semibold text-white/95 truncate">
